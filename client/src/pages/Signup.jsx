@@ -1,7 +1,30 @@
-import React from "react";
+import { useState } from "react";
 import WelcomPanel from "../components/WelcomPanel";
+import axios from "axios"
 
 const Signup = () => {
+  const [formData, setFormData] = useState({
+    full_name: "",
+    email: "",
+    phone_no: "",
+    password: "",
+    userType: ""
+  })
+  const handleChange = (e) => {
+    // console.log(e.target.name, e.target.value);
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  };
+  console.log(formData);
+  const handleSignup = async () => {
+    // e.preventdefault()
+    try {
+      const res = await axios.post("http://localhost:3000/auth/signup",)
+      console.log(res);
+
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  }
   return (
     <>
       <div className="flex justify-between bg-amber-100">
@@ -16,40 +39,58 @@ const Signup = () => {
               shopping today
             </p>
             <div>
-              <form className="flex flex-col gap-4">
+              <form className="flex flex-col gap-4" >
                 <input
                   type="text"
+                  onChange={handleChange}
+                  value={formData.full_name}
+                  name="full_name"
                   placeholder="Full Name"
                   className="outline-none border-1 border-gray-400 rounded-2xl py-2 px-4 w-full focus:ring-2 focus:ring-amber-500"
                 />
                 <input
                   type="text"
+                  onChange={handleChange}
+                  name="email"
                   placeholder="Email Address"
                   className="outline-none border-1 border-gray-400 rounded-2xl py-2 px-4 w-full focus:ring-2 focus:ring-amber-500"
                 />
                 <input
                   type="text"
+                  onChange={handleChange}
+                  name="phone_no"
                   placeholder="Phone Number"
                   className="outline-none border-1 border-gray-400 rounded-2xl py-2 px-4 w-full focus:ring-2 focus:ring-amber-500"
                 />
                 <input
                   type="text"
+                  onChange={handleChange}
+                  name="password"
                   placeholder="Password"
                   className="outline-none border-1 border-gray-400 rounded-2xl py-2 px-4 w-full focus:ring-2 focus:ring-amber-500"
                 />
-                <select className="outline-none border-1 border-gray-400 rounded-2xl py-2 px-4 w-full focus:ring-2 focus:ring-amber-500">
+                <select
+                  onChange={handleChange}
+                  name="userType"
+                  value={formData.userType}
+                  className="outline-none border-1 border-gray-400 rounded-2xl py-2 px-4 w-full focus:ring-2 focus:ring-amber-500">
                   <option value="">Select UserType</option>
-                  <option value="">Admin</option>
-                  <option value="">Agency</option>
-                  <option value="">Customer</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Agency">Agency</option>
+                  <option value="Customer">Customer</option>
                 </select>
 
-                <button className="outline-none text-white font-semibold bg-amber-500 rounded-2xl py-2 px-4 w-full">
+                <button
+                  type="button"
+                  onClick={handleSignup}
+                  className="outline-none text-white font-semibold bg-amber-500 rounded-2xl py-2 px-4 w-full">
                   Create Account
                 </button>
-
               </form>
-              <p className="text-gray-400 mt-2">Already have a account ? <span className="text-amber-500">Login</span></p>
+              <p className="text-gray-400 mt-2">
+                Already have a account ?{" "}
+                <span className="text-amber-500">Login</span>
+              </p>
             </div>
           </div>
         </div>

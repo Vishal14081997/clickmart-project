@@ -1,6 +1,8 @@
 import { useState } from "react";
 import WelcomPanel from "../components/WelcomPanel";
 import axios from "axios"
+import { Link, useNavigate } from "react-router-dom"
+import { toast } from "react-hot-toast"
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +12,8 @@ const Signup = () => {
     password: "",
     userType: ""
   })
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     // console.log(e.target.name, e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -18,11 +22,20 @@ const Signup = () => {
   const handleSignup = async () => {
     // e.preventdefault()
     try {
-      const res = await axios.post("http://localhost:3000/auth/signup",)
+      const res = await axios.post("http://localhost:3000/auth/signup", formData)
       console.log(res);
-
+      setFormData({
+        full_name: "",
+        email: "",
+        phone_no: "",
+        password: "",
+        userType: ""
+      });
+      toast.success(res.data.message)
+      navigate("/login")
     } catch (error) {
       console.log(error.response.data.message);
+      toast.error(error.response.data.message)
     }
   }
   return (
@@ -89,7 +102,11 @@ const Signup = () => {
               </form>
               <p className="text-gray-400 mt-2">
                 Already have a account ?{" "}
-                <span className="text-amber-500">Login</span>
+                <span className="text-amber-500">
+                  <Link to={"/login"}>
+                    Login
+                  </Link>
+                </span>
               </p>
             </div>
           </div>

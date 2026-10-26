@@ -2,6 +2,7 @@ import React from 'react'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import { Toaster } from "react-hot-toast"
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,12 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
-  return <RouterProvider router={router} />
+  return (
+    <>
+      <Toaster position='top-center' />
+      <RouterProvider router={router} />
+    </>
+  )
 }
 
 export default App

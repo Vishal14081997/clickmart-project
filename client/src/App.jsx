@@ -9,6 +9,8 @@ import Categories from "./pages/Categories"
 import Products from "./pages/Products"
 import Agency from "./pages/Agency"
 import Customer from "./pages/Customer"
+import AddProducts from './components/AddProducts'
+import AddCategory from './components/AddCategory'
 
 
 const router = createBrowserRouter([
@@ -25,7 +27,7 @@ const router = createBrowserRouter([
     element: <Login />
   },
   {
-    path: "/ds",
+    path: "/",
     element: <DashboardLayout />,
     children: [
       { path: "dashboard", element: <Dashboard /> },
@@ -33,6 +35,8 @@ const router = createBrowserRouter([
       { path: "products", element: <Products /> },
       { path: "agency-list", element: <Agency /> },
       { path: "customer-list", element: <Customer /> },
+      { path: "add-product", element: <AddProducts /> },
+      { path: "add-category", element: <AddCategory /> }
     ]
   },
 

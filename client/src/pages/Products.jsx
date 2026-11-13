@@ -1,8 +1,22 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Products = () => {
   return (
-    <div>Products</div>
+    <>
+      <div className='flex justify-between mt-6'>
+        <div>
+          <h1 className='font-bold text-xl'>Products</h1>
+          <p className='text-gray-400'>Manage products for your store</p>
+        </div>
+        <div className='bg-orange-400 text-white font-semibold flex justify-center items-center gap-1 rounded-2xl px-2'>
+          <span className='text-[24px]'>+</span> 
+          <Link to={"/add-product"}>
+          Add Product
+          </Link>
+        </div>
+      </div>
+    </>
   )
 }
 

@@ -24,7 +24,7 @@ export const AddCategory = async (req, res) => {
             return res.status(400).json({ message: "Category already exist" })
         }
         const category = await Category.create({
-            CName, CDesc
+            CName, CDesc 
         });
         res.status(200).json({
             message: "Category created",
@@ -46,5 +46,16 @@ export const getAllCategory = async (req, res) => {
     } catch (error) {
         console.log("getAllCategory error:", error.message);
         res.status(500).json({ message: error.message })
+    }
+}
+export const uploadImage = async (req, res) => {
+    try {
+        res.status(200).json({
+            message: "image upload",
+            data: req.imageUrl
+        })
+    } catch (error) {
+        console.log(error);
+
     }
 }

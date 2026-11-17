@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import WelcomPanel from '../components/WelcomPanel'
 import axios from 'axios'
-import {toast} from "react-hot-toast"
-import { Link } from 'react-router-dom'
+import { toast } from "react-hot-toast"
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "", password: ""
   })
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     // console.log(e.target.name , e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -17,8 +17,10 @@ const Login = () => {
     try {
       const response = await axios.post("http://localhost:3000/auth/login", formData);
       console.log(response);
-      setFormData({email:"", password:""})
+      localStorage.setItem("token", response.data.data.token)
+      setFormData({ email: "", password: "" })
       toast.success(response.data.message)
+      navigate("/dashboard")
     } catch (error) {
       console.log(error.response.data.message);
       toast.error(error.response.data.message)
@@ -72,9 +74,9 @@ const Login = () => {
             </form>
             <p className="text-gray-400 mt-2">Don't have a account ? <span className="text-amber-500">
               <Link to={"/signup"}>
-              Sign Up
+                Sign Up
               </Link>
-              </span></p>
+            </span></p>
           </div>
         </div>
       </div>

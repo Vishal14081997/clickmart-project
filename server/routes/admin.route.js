@@ -7,7 +7,8 @@ import uploadToCloudinary from "../middleware/cloudinary.middleware.js";
 
 const router = express.Router();
 
-router.post("/add-category", verifyToken, AddCategory)
+router.post("/add-category", upload.single("category_image"), uploadToCloudinary, verifyToken, AddCategory)
+
 router.get("/get-all-category", verifyToken, getAllCategory)
 router.get("/get-profile", verifyToken, profile)
 router.post("/image-upload", upload.single("image"), uploadToCloudinary, uploadImage)

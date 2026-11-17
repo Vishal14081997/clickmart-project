@@ -1,8 +1,10 @@
 import cloudinary from "../config/cloudinary.js"
 
 const uploadToCloudinary = async (req, res, next) => {
-    console.log("file path:", req.file.path);
-
+    if (!req.file) {
+        return next()
+    }
+    // console.log("file path:", req.file.path);
     try {
         const result = await cloudinary.uploader.upload(req.file.path, {
             folder: "click_mart"
@@ -11,8 +13,7 @@ const uploadToCloudinary = async (req, res, next) => {
         console.log(result);
         next()
     } catch (error) {
-        console.log(error);
-
+        next(error)
     }
 }
 export default uploadToCloudinary;

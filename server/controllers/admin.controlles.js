@@ -24,7 +24,7 @@ export const AddCategory = async (req, res) => {
             return res.status(400).json({ message: "Category already exist" })
         }
         const category = await Category.create({
-            CName, CDesc 
+            CName, CDesc ,image_url:req.imageUrl 
         });
         res.status(200).json({
             message: "Category created",

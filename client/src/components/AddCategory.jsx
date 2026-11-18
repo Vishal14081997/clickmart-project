@@ -1,5 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { toast } from "react-hot-toast"
 
 const AddCategory = () => {
     const [formData, setFormData] = useState({
@@ -7,10 +9,11 @@ const AddCategory = () => {
         CDesc: ""
     })
     const token = localStorage.getItem("token")
-    console.log(token);
+    // console.log(token);
+    const navigate = useNavigate()
 
-    const [preview, setPreview] = useState();
-    const [imageUrl, setImageUrl] = useState()
+    const [preview, setPreview] = useState("");
+    const [imageUrl, setImageUrl] = useState(null)
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -35,7 +38,16 @@ const AddCategory = () => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log(res);
+            // console.log(res.data);
+            toast.success(res.data.message)
+            setFormData({
+                CName: "",
+                CDesc: ""
+            })
+            setImageUrl(null)
+            setPreview("")
+            navigate("/categories")
+
         } catch (error) {
             console.log(error);
         }

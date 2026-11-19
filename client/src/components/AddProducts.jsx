@@ -72,7 +72,6 @@ const AddProduct = () => {
 
                     </select>
 
-
                     <button
                         type="submit"
                         className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-orange-300 text-white font-semibold px-6 py-2 rounded-xl transition-all duration-300"

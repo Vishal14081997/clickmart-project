@@ -138,7 +138,7 @@ export const addProduct = async (req, res) => {
                 message: "product already exist"
             })
         }
-        console.log(existProduct);
+        // console.log(existProduct);
         const product = await Product.create({
             CID, PName, PDesc, price, Qty, MRP, image_url: req.imageUrl
         })
@@ -148,6 +148,18 @@ export const addProduct = async (req, res) => {
         })
     } catch (error) {
         console.log("addProduct error:", error.message);
+        res.status(500).json({ message: error.message })
+    }
+}
+export const getAllProducts = async (req, res) => {
+    try {
+        const products = await Product.find().populate("CID","CName").sort({createdAt:-1})
+        res.status(200).json({
+            total: products.length,
+            data: products
+        })
+    } catch (error) {
+        console.log("getAllProducts error:", error.message);
         res.status(500).json({ message: error.message })
     }
 }
